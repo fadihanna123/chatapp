@@ -1,4 +1,4 @@
-import { Document } from "mongoose";
+import { Document } from 'mongoose';
 
 export interface IMsgs extends Document {
   author: string;
@@ -10,7 +10,6 @@ export interface JoinArr {
   nickName: string;
   joinedDatenTime: Date;
 }
-[];
 
 export interface IJoinList {
   id: string;

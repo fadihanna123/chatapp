@@ -17,7 +17,7 @@ io.on('connection', async (socket: Socket) => {
     JoinList.joinedDatenTime = new Date();
     const SaveUser = await JoinList.save();
 
-    SaveUser && socket.emit('loginMsg', 'Success');
+    if (SaveUser) socket.emit('loginMsg', 'Success');
 
     console.log(`${nickName} is joined!`);
   });
