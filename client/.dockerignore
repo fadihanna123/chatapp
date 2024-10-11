@@ -1,8 +1,0 @@
-# Environment
-.env
-
-# Docker
-Dockerfile
-
-# Dependencies
-node_modules

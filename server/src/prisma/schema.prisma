@@ -1,0 +1,21 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model chat {
+  id           Int      @id @default(autoincrement())
+  author       String
+  msg          String
+  msgDatenTime DateTime
+}
+
+model onlinelist {
+  id              Int      @id @default(autoincrement())
+  nickName        String
+  joinedDatenTime DateTime
+}
