@@ -1,38 +1,50 @@
+import { connector } from 'App';
 import Header from 'inc/Header';
-import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
-import { io } from 'socket.io-client';
-import {
-  nickNameState,
-  onlineListState,
-  msgValState,
-  msgListState,
-} from 'States';
+import { useGlobalContext } from 'States';
 import styled from 'styled-components';
-import { msgListTypes, OnlineListTypes } from 'typings';
+import { msgListTypes } from 'typings';
 import OnlineListComp from './OnlineListComp';
-
-const socket = io('http://localhost:5000');
+import { useEffect, useRef } from 'react';
 
 const ChatLayout = () => {
-  const [nickName] = useRecoilState(nickNameState);
-  const [, setOnlineList] = useRecoilState(onlineListState);
-  const [msgVal, setMsgVal] = useRecoilState(msgValState);
-  const [msgList, setMsgList] = useRecoilState(msgListState);
+  const {
+    nickName,
+    msgVal,
+    setMsgVal,
+    msgList,
+    isTyping,
+    setIsTyping,
+    typingUser,
+  } = useGlobalContext();
+  let typingTimer: ReturnType<typeof setTimeout>;
 
-  const sendMsg = () => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const sendMsg = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (msgVal === '') return;
     const msgTime = new Date();
-    socket?.emit('Send message', nickName, msgVal, msgTime);
+    connector?.emit('Send message', nickName, msgVal, msgTime);
+    setIsTyping(false);
+    setMsgVal('');
+  };
+
+  const handleTyping = () => {
+    if (!isTyping) {
+      setIsTyping(true);
+      connector?.emit('typing started', nickName);
+    }
+
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(() => {
+      setIsTyping(false);
+      connector?.emit('typing stopped', nickName);
+    }, 5000);
   };
 
   useEffect(() => {
-    socket?.on('OnlineList', (data: OnlineListTypes[]) => {
-      setOnlineList(data);
-    });
-    socket?.on('Messages', (data: msgListTypes[]) => {
-      setMsgList(data);
-    });
-  }, [setOnlineList, setMsgList]);
+    ref!.current!.scrollTo(0, ref.current!.scrollHeight);
+  }, [ref]);
 
   return (
     <>
@@ -40,11 +52,13 @@ const ChatLayout = () => {
       <main className='columns m-2 p-0 section'>
         <OnlineListComp />
         <Section className='column is-three-quarters p-2 has-background-warning has-text-light'>
-          <ChatRoom className='chatRoom'>
+          <ChatRoom className='chatRoom' ref={ref}>
             <ul>
-              {msgList.map((item: msgListTypes) => (
-                <li key={item._id} className='has-text-info is-size-4'>
-                  <span className='has-text-dark has-d-inline is-size-4'>
+              {msgList.map((item: msgListTypes, i: number) => (
+                <li key={i} className='has-text-dark is-size-4'>
+                  <span
+                    className={`has-d-inline is-size-4 ${item.author === nickName ? 'has-text-success' : 'has-text-link'}`}
+                  >
                     {item.author}
                   </span>
                   : {item.msg}
@@ -52,6 +66,14 @@ const ChatLayout = () => {
               ))}
             </ul>
           </ChatRoom>
+          {typingUser && (
+            <div className='has-text-info is-size-4'>
+              <span className='has-text-dark has-d-inline is-size-4'>
+                {typingUser}
+              </span>
+              : is typing...
+            </div>
+          )}
           <SendForm>
             <form className='p-2'>
               <section className='field is-horizontal'>
@@ -60,7 +82,13 @@ const ChatLayout = () => {
                     type='text'
                     name='msg'
                     value={msgVal}
-                    onChange={(e) => setMsgVal(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') sendMsg(e);
+                    }}
+                    onChange={(e) => {
+                      setMsgVal(e.target.value);
+                      handleTyping();
+                    }}
                     className='input resize'
                     placeholder='Enter your message here...'
                   />
@@ -88,7 +116,7 @@ const Section = styled.section`
   transition: 0.3s;
 `;
 
-const ChatRoom = styled.section`
+const ChatRoom = styled.div`
   width: 100%;
   overflow: scroll;
   height: 500px;

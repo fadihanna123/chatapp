@@ -18,4 +18,5 @@ model onlinelist {
   id              Int      @id @default(autoincrement())
   nickName        String
   joinedDatenTime DateTime
+  userId          String
 }

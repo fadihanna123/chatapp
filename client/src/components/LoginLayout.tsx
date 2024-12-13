@@ -1,21 +1,18 @@
-import { useEffect, useCallback } from 'react';
-import { useRecoilState } from 'recoil';
-import { io } from 'socket.io-client';
-import { loginState, nickNameState, warningState } from 'States';
+import { connector } from 'App';
+import { useCallback, useEffect } from 'react';
+import { useGlobalContext } from 'States';
 import styled from 'styled-components';
 
-const socket = io('http://localhost:5000');
-
 const LoginLayout = () => {
-  const [nickName, setNickName] = useRecoilState(nickNameState);
-  const [, setLogin] = useRecoilState(loginState);
-  const [warning, setWarning] = useRecoilState(warningState);
+  const { nickName, setNickName } = useGlobalContext();
+  const { setLogin } = useGlobalContext();
+  const { warning, setWarning } = useGlobalContext();
 
   const enterChat = useCallback(() => {
     if (nickName === '') {
       setWarning('You should enter your nickname first!');
     } else {
-      socket.on('loginMsg', (msg: string) => {
+      connector.on('loginMsg', (msg: string) => {
         if (msg === 'Success' && !warning) {
           setLogin(true);
         } else {
@@ -23,7 +20,7 @@ const LoginLayout = () => {
         }
       });
 
-      socket.emit('Join', nickName);
+      connector.emit('Join', nickName);
     }
   }, [nickName, setLogin, warning, setWarning]);
 

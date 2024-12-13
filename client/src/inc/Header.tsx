@@ -1,14 +1,15 @@
-import { useRecoilState } from "recoil";
-import { nickNameState } from "States";
+import { useGlobalContext } from 'States';
 
 const Header = () => {
-  const [nickName] = useRecoilState(nickNameState);
+  const { nickName } = useGlobalContext();
 
   return (
     <>
-      <header className="hero has-text-large is-info m-2 tile">
-        <section className="hero-body section">
-          <h1 className="title is-3">Welcome {nickName}</h1>
+      <header className='hero has-text-large is-info m-2 tile'>
+        <section className='hero-body section'>
+          <h1 className='title is-3'>
+            Welcome {nickName.charAt(0).toUpperCase() + nickName.slice(1)}
+          </h1>
         </section>
       </header>
     </>

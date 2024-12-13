@@ -1,8 +1,8 @@
 export interface OnlineListTypes {
-  _id: string;
-  id: string;
+  id: number;
   nickName: string;
   joinedDatenTime: Date;
+  userId: string;
 }
 
 export interface msgListTypes {

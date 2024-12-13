@@ -1,7 +1,7 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
-  *{
+  * {
       margin: 0;
       padding:0;
       font-size: 100%;
@@ -11,11 +11,12 @@ export const GlobalStyles = createGlobalStyle`
       list-style: none;   
   }
 
-  body{
-    font-family: Cambria, Georgia;
+  body {
+    font-family: 'Poppins', sans-serif;
   }
 
-  img{
+
+  img {
     display: block;
     max-width: 100%;
     max-height: 100%;

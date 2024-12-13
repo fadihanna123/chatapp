@@ -1,11 +1,19 @@
 {
   "compilerOptions": {
     "target": "ES2017",
+    "lib": ["ESNext"],
     "module": "CommonJS",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "alwaysStrict": true,
+    "baseUrl": ".",
+    "outDir": "dist",
+    "paths": {
+      "@/*": ["src/*"],
+      "@config/*": ["src/config/*"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
