@@ -1,34 +1,35 @@
 {
   "name": "server",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "scripts": {
     "setup": "yarn --emoji --silent --ignore-scripts --immutable",
-    "build": "esbuild src/server.ts --bundle --minify --platform=node --outdir=dist",
     "dev": "ts-node-dev --poll -r tsconfig-paths/register src/server",
-    "lint": "eslint . && tsc --noEmit",
+    "lint": "eslint . && tsc --noEmit && yarn type-check",
     "format": "prettier . -w",
     "seed": "prisma db push && prisma db pull && prisma generate",
-    "ci": "yarn build && yarn lint"
+    "type-check": "tsc --noEmit",
+    "clear": "rimraf node_modules dist"
   },
   "prisma": {
     "schema": "src/prisma/schema.prisma"
   },
   "license": "MIT",
   "dependencies": {
-    "@prisma/client": "^6.0.1",
+    "@prisma/client": "^6.3.0",
     "dotenv": "^16.4.7",
-    "mongoose": "^8.8.4",
-    "prisma": "^6.0.1",
+    "mongoose": "^8.9.5",
+    "prisma": "^6.3.0",
     "socket.io": "^4.8.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.16.0",
-    "esbuild": "^0.24.0",
-    "eslint": "^9.16.0",
-    "globals": "^15.13.0",
+    "@eslint/js": "^9.19.0",
+    "esbuild": "^0.24.2",
+    "eslint": "^9.19.0",
+    "globals": "^15.14.0",
     "prettier": "^3.4.2",
+    "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "5.7.2",
-    "typescript-eslint": "^8.18.0"
+    "typescript": "5.7.3",
+    "typescript-eslint": "^8.22.0"
   }
 }

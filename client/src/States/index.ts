@@ -1,5 +1,5 @@
-import { createContext, useContext } from 'react';
-import { OnlineListTypes, msgListTypes } from 'typings';
+import { createContext, useContext } from "react";
+import { OnlineListTypes, msgListTypes } from "typings";
 
 interface MyGlobalContextInterface {
   login: boolean;
@@ -22,10 +22,10 @@ interface MyGlobalContextInterface {
 
 export const MyGlobalContext = createContext<MyGlobalContextInterface>({
   login: false,
-  nickName: '',
-  warning: '',
+  nickName: "",
+  warning: "",
   onlineList: [],
-  msgVal: '',
+  msgVal: "",
   msgList: [],
   setOnlineList: () => {},
   setMsgList: () => {},
@@ -35,7 +35,7 @@ export const MyGlobalContext = createContext<MyGlobalContextInterface>({
   setWarning: () => {},
   isTyping: false,
   setIsTyping: () => {},
-  typingUser: '',
+  typingUser: "",
   setTypingUser: () => {},
 });
 

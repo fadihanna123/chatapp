@@ -1,28 +1,31 @@
 {
   "name": "client",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "private": true,
   "dependencies": {
-    "@types/react": "^19.0.1",
-    "@types/react-dom": "^19.0.2",
-    "bulma": "^1.0.2",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "bulma": "^1.0.3",
     "normalize.css": "^8.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-scripts": "5.0.1",
     "socket.io-client": "^4.8.1",
-    "styled-components": "^6.1.13",
-    "typescript": "5.7.2"
+    "styled-components": "^6.1.14",
+    "typescript": "5.7.3"
   },
   "scripts": {
     "setup": "yarn --emoji --ignore-scripts --silent --immutable",
     "dev": "react-scripts start",
     "build": "react-scripts build",
+    "preview": "serve build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint . && tsc --noEmit",
+    "lint": "eslint . && yarn type-check && htmlhint **/*.html",
+    "type-check": "tsc --noEmit",
     "format": "prettier . -w",
-    "ci": "yarn build && yarn test && yarn lint"
+    "ci": "yarn build && yarn test && yarn lint",
+    "clear": "rimraf build node_modules"
   },
   "browserslist": {
     "production": [
@@ -38,13 +41,16 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@eslint/js": "^9.16.0",
+    "@eslint/js": "^9.19.0",
     "@types/styled-components": "^5.1.34",
-    "eslint": "^9.16.0",
-    "eslint-plugin-react": "^7.37.2",
-    "globals": "^15.13.0",
+    "eslint": "^9.19.0",
+    "eslint-plugin-html": "^8.1.2",
+    "eslint-plugin-react": "^7.37.4",
+    "globals": "^15.14.0",
+    "htmlhint": "^1.1.4",
     "prettier": "^3.4.2",
-    "sass": "^1.83.0",
-    "typescript-eslint": "^8.18.0"
+    "sass": "^1.83.4",
+    "serve": "^14.2.4",
+    "typescript-eslint": "^8.22.0"
   }
 }

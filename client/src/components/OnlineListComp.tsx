@@ -1,21 +1,21 @@
-import { useGlobalContext } from 'States';
-import styled from 'styled-components';
-import { OnlineListTypes } from 'typings';
+import { useGlobalContext } from "States";
+import styled from "styled-components";
+import { OnlineListTypes } from "typings";
 
 const OnlineListComp = () => {
   const { onlineList, nickName } = useGlobalContext();
 
   return (
     <>
-      <Section className='column has-background-success has-text-light'>
-        <h1 className='title is-size-4 has-text-centered'>Online List</h1>
-        <ul className='has-text-centered'>
+      <Section className="column has-background-success has-text-light">
+        <h1 className="title is-size-4 has-text-centered">Online List</h1>
+        <ul className="has-text-centered">
           {onlineList
             .filter((user) => user.nickName !== nickName)
             .map((item: OnlineListTypes, i: number) => (
-              <li key={i} className='is-size-4'>
-                <i className='fa fa-dot-circle has-text-light is-text-1'></i>
-                {'  '}
+              <li key={i} className="is-size-4">
+                <i className="fa fa-dot-circle has-text-light is-text-1"></i>
+                {"  "}
                 {item.nickName.charAt(0).toUpperCase() + nickName.slice(1)}
               </li>
             ))}
