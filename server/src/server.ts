@@ -1,30 +1,27 @@
-import { prisma } from "@/config";
-import "dotenv/config";
-import { Server, Socket } from "socket.io";
-import "./config";
+import { prisma } from '@/config';
+import 'dotenv/config';
+import { Server, Socket } from 'socket.io';
+import './config';
 
-const io = new Server(5000, { cors: { origin: "http://localhost:3000" } });
+const io = new Server(5000, { cors: { origin: 'http://localhost:3000' } });
 
-io.on("connection", async (socket: Socket) => {
+io.on('connection', async (socket: Socket) => {
   console.log(`✅ Client ${socket.id} has connected!`);
 
-  socket.on("Join", async (nickName: string) => {
+  socket.on('Join', async (nickName: string) => {
     const payload = {
       nickName: nickName,
       joinedDatenTime: new Date(),
       userId: socket.id,
     };
+
     const SaveUser = await prisma.onlinelist.create({
-      data: {
-        nickName: nickName,
-        joinedDatenTime: new Date(),
-        userId: socket.id,
-      },
+      data: payload,
     });
 
     if (SaveUser) {
-      socket.emit("loginMsg", "Success");
-      io.sockets.emit("new user", payload);
+      socket.emit('loginMsg', 'Success');
+      io.sockets.emit('new user', payload);
     }
 
     console.log(`${nickName} is joined!`);
@@ -33,10 +30,10 @@ io.on("connection", async (socket: Socket) => {
   const onlineListData = await prisma.onlinelist.findMany();
   const messagesList = await prisma.chat.findMany();
 
-  io.sockets.emit("OnlineList", onlineListData);
-  io.sockets.emit("Messages", messagesList);
+  io.sockets.emit('OnlineList', onlineListData);
+  io.sockets.emit('Messages', messagesList);
 
-  socket.on("Send message", async (author, msgVal, msgTime) => {
+  socket.on('Send message', async (author, msgVal, msgTime) => {
     await prisma.chat.create({
       data: {
         author,
@@ -46,18 +43,18 @@ io.on("connection", async (socket: Socket) => {
     });
 
     const messagesList = await prisma.chat.findMany();
-    io.sockets.emit("Messages", messagesList);
+    io.sockets.emit('Messages', messagesList);
   });
 
-  socket.on("typing started", async (nickName: string) => {
-    socket.broadcast.emit("typing started", nickName);
+  socket.on('typing started', async (nickName: string) => {
+    socket.broadcast.emit('typing started', nickName);
   });
 
-  socket.on("typing stopped", async () => {
-    socket.broadcast.emit("typing stopped");
+  socket.on('typing stopped', async () => {
+    socket.broadcast.emit('typing stopped');
   });
 
-  socket.on("disconnect", async () => {
+  socket.on('disconnect', async () => {
     const findUser = await prisma.onlinelist.findFirst({
       where: { userId: socket.id },
     });
@@ -68,7 +65,7 @@ io.on("connection", async (socket: Socket) => {
       });
     }
 
-    io.sockets.emit("user disconnected", findUser?.nickName);
+    io.sockets.emit('user disconnected', findUser?.nickName);
 
     console.log(`🚫 Client ${socket.id} has disconnected`);
   });

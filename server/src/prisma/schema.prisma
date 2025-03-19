@@ -3,20 +3,20 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
 model chat {
-  id           String    @id @default(auto()) @map("_id") @db.ObjectId
   author       String
   msg          String
   msgDatenTime DateTime
+  id           String   @id @default(uuid())
 }
 
 model onlinelist {
-  id              String    @id @default(auto()) @map("_id") @db.ObjectId
   nickName        String
   joinedDatenTime DateTime
   userId          String
+  id              String   @id @default(uuid())
 }

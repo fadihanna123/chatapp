@@ -1,6 +1,4 @@
-import { Document } from "mongoose";
-
-export interface IMsgs extends Document {
+export interface IMsgs {
   author: string;
   msg: string;
   msgDatenTime: Date;

@@ -1,6 +1,7 @@
 {
   "name": "server",
-  "version": "1.0.7",
+  "version": "1.0.8",
+  "lastUpgrade": "20250319",
   "scripts": {
     "setup": "yarn --emoji --silent --ignore-scripts --immutable",
     "dev": "ts-node-dev --poll -r tsconfig-paths/register src/server",
@@ -15,21 +16,19 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@prisma/client": "^6.3.0",
-    "dotenv": "^16.4.7",
-    "mongoose": "^8.9.6",
-    "prisma": "^6.3.0",
-    "socket.io": "^4.8.1"
+    "@prisma/client": "6.5.0",
+    "dotenv": "16.4.7",
+    "prisma": "6.5.0",
+    "socket.io": "4.8.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.19.0",
-    "esbuild": "^0.25.0",
-    "eslint": "^9.19.0",
-    "globals": "^15.14.0",
-    "prettier": "^3.4.2",
-    "ts-node-dev": "^2.0.0",
-    "tsconfig-paths": "^4.2.0",
-    "typescript": "5.7.3",
-    "typescript-eslint": "^8.22.0"
+    "@eslint/js": "9.22.0",
+    "eslint": "9.22.0",
+    "globals": "16.0.0",
+    "prettier": "3.5.3",
+    "ts-node-dev": "2.0.0",
+    "tsconfig-paths": "4.2.0",
+    "typescript": "5.8.2",
+    "typescript-eslint": "8.26.1"
   }
 }
