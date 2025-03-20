@@ -1,28 +1,31 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "baseUrl": "src",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
+    "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
     "module": "ES2015",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "baseUrl": "./",
+    "noFallthroughCasesInSwitch": true,
     "jsx": "react-jsx",
     "alwaysStrict": true,
+    "types": ["vite/client"],
     "paths": {
-      "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
-      "@styles/*": ["src/styles/*"]
+      "@core/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@inc/*": ["./src/inc/*"],
+      "@states/*": ["./src/states/*"],
+      "@styles/*": ["./src/styles/*"]
     }
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "include": ["./src/**/*", "./vite.config.mts"],
+  "exclude": ["./node_modules"]
 }

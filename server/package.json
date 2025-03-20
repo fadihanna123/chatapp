@@ -1,15 +1,17 @@
 {
   "name": "server",
-  "version": "1.0.8",
-  "lastUpgrade": "20250319",
+  "version": "1.0.9",
+  "lastUpgrade": "20250320",
   "scripts": {
     "setup": "yarn --emoji --silent --ignore-scripts --immutable",
+    "start": "node dist/server",
     "dev": "ts-node-dev --poll -r tsconfig-paths/register src/server",
-    "lint": "eslint . && tsc --noEmit && yarn type-check",
-    "format": "prettier . -w",
+    "build": "esbuild ./src/server.ts --bundle --minify --outdir=./build --platform=node",
+    "lint": "eslint ./ && tsc --noEmit && yarn type-check",
+    "format": "prettier ./ -w",
     "seed": "prisma db push && prisma db pull && prisma generate",
     "type-check": "tsc --noEmit",
-    "clear": "rimraf node_modules dist"
+    "clear": "rimraf ./node_modules ./build"
   },
   "prisma": {
     "schema": "src/prisma/schema.prisma"
@@ -29,6 +31,6 @@
     "ts-node-dev": "2.0.0",
     "tsconfig-paths": "4.2.0",
     "typescript": "5.8.2",
-    "typescript-eslint": "8.26.1"
+    "typescript-eslint": "8.27.0"
   }
 }

@@ -1,55 +1,56 @@
-import ChatLayout from "components/ChatLayout";
-import LoginLayout from "components/LoginLayout";
-import { useEffect, useState } from "react";
-import { io } from "socket.io-client";
-import { MyGlobalContext } from "States";
-import { msgListTypes, OnlineListTypes } from "typings";
+import { useEffect, useState } from 'react';
+import { io } from 'socket.io-client';
 
-export const connector = io("http://localhost:5000");
+// Components
+import ChatLayout from '@components/ChatLayout';
+import LoginLayout from '@components/LoginLayout';
+import { MyGlobalContext } from '@states/index';
+
+export const connector = io('http://localhost:5000');
 
 const App: React.FC = () => {
   const [login, setLogin] = useState<boolean>(false);
-  const [nickName, setNickName] = useState<string>("");
-  const [warning, setWarning] = useState<string>("");
+  const [nickName, setNickName] = useState<string>('');
+  const [warning, setWarning] = useState<string>('');
   const [onlineList, setOnlineList] = useState<OnlineListTypes[]>([]);
-  const [msgVal, setMsgVal] = useState<string>("");
+  const [msgVal, setMsgVal] = useState<string>('');
   const [msgList, setMsgList] = useState<msgListTypes[]>([]);
-  const [typingUser, setTypingUser] = useState<string>("");
+  const [typingUser, setTypingUser] = useState<string>('');
   const [isTyping, setIsTyping] = useState<boolean>(false);
 
   useEffect(() => {
-    connector?.on("new user", (payload: OnlineListTypes) => {
+    connector?.on('new user', (payload: OnlineListTypes) => {
       setOnlineList((prev) => [...prev, payload]);
     });
 
-    connector?.on("Messages", (data: msgListTypes[]) => {
+    connector?.on('Messages', (data: msgListTypes[]) => {
       setMsgList(data);
     });
 
-    connector?.on("typing started", (nickName: string) => {
+    connector?.on('typing started', (nickName: string) => {
       setIsTyping(true);
       setTypingUser(nickName);
     });
 
-    connector?.on("typing stopped", () => {
+    connector?.on('typing stopped', () => {
       setIsTyping(false);
-      setTypingUser("");
+      setTypingUser('');
     });
 
-    connector?.on("user disconnected", (nickName: string) => {
+    connector?.on('user disconnected', (nickName: string) => {
       const filteredArr = onlineList.filter(
-        (item) => item.nickName !== nickName,
+        (item) => item.nickName !== nickName
       );
 
       setOnlineList(filteredArr);
     });
 
     return () => {
-      connector?.off("new user");
-      connector?.off("Messages");
-      connector?.off("user disconnected");
-      connector?.off("typing started");
-      connector?.off("typing stopped");
+      connector?.off('new user');
+      connector?.off('Messages');
+      connector?.off('user disconnected');
+      connector?.off('typing started');
+      connector?.off('typing stopped');
     };
   }, [setOnlineList, setMsgList]);
 
@@ -74,7 +75,7 @@ const App: React.FC = () => {
         setIsTyping,
       }}
     >
-      <div className="container">
+      <div className='container'>
         {login ? <ChatLayout /> : <LoginLayout />}
       </div>
     </MyGlobalContext.Provider>
