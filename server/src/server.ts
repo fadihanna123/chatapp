@@ -8,42 +8,25 @@ const io = new Server(5000, { cors: { origin: 'http://localhost:3000' } });
 io.on('connection', async (socket: Socket) => {
   console.log(`✅ Client ${socket.id} has connected!`);
 
-  socket.on('Join', async (nickName: string) => {
+  socket.on('join', async (nickName: string) => {
     const payload = {
-      nickName: nickName,
+      nickName,
       joinedDatenTime: new Date(),
       userId: socket.id,
     };
 
-    const SaveUser = await prisma.onlinelist.create({
-      data: payload,
-    });
-
-    if (SaveUser) {
-      socket.emit('loginMsg', 'Success');
-      io.sockets.emit('new user', payload);
-    }
+    socket.emit('loginMsg', 'Success');
+    io.sockets.emit('new user', payload);
 
     console.log(`${nickName} is joined!`);
   });
 
-  const onlineListData = await prisma.onlinelist.findMany();
-  const messagesList = await prisma.chat.findMany();
-
-  io.sockets.emit('OnlineList', onlineListData);
-  io.sockets.emit('Messages', messagesList);
-
-  socket.on('Send message', async (author, msgVal, msgTime) => {
-    await prisma.chat.create({
-      data: {
-        author,
-        msg: msgVal,
-        msgDatenTime: msgTime,
-      },
+  socket.on('send message', async (author, msgVal, msgTime) => {
+    io.sockets.emit('new message', {
+      author,
+      msg: msgVal,
+      msgDatenTime: msgTime,
     });
-
-    const messagesList = await prisma.chat.findMany();
-    io.sockets.emit('Messages', messagesList);
   });
 
   socket.on('typing started', async (nickName: string) => {

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { FC, useEffect, useRef } from 'react';
+import { FaPaperPlane } from 'react-icons/fa';
 
 // Components
 import { connector } from '@core/App';
@@ -25,7 +26,7 @@ const ChatLayout: FC = () => {
     e.preventDefault();
     if (msgVal === '') return;
     const msgTime = new Date();
-    connector?.emit('Send message', nickName, msgVal, msgTime);
+    connector?.emit('send message', nickName, msgVal, msgTime);
     setIsTyping(false);
     setMsgVal('');
   };
@@ -60,7 +61,7 @@ const ChatLayout: FC = () => {
                   <span
                     className={`has-d-inline is-size-4 ${item.author === nickName ? 'has-text-success' : 'has-text-link'}`}
                   >
-                    {item.author}
+                    {item.author.charAt(0).toUpperCase() + item.author.slice(1)}
                   </span>
                   : {item.msg}
                 </li>
@@ -99,7 +100,7 @@ const ChatLayout: FC = () => {
                   onClick={sendMsg}
                   className='button is-success ml-2'
                 >
-                  Send
+                  <FaPaperPlane className='mr-2' /> Send
                 </button>
               </section>
             </form>

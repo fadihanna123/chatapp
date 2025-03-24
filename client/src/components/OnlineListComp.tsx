@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { FaSignal } from 'react-icons/fa';
 
 // Components
 import { useGlobalContext } from '@states/index';
@@ -10,7 +11,10 @@ const OnlineListComp: FC = () => {
   return (
     <>
       <Section className='column has-background-success has-text-light'>
-        <h1 className='title is-size-4 has-text-centered'>Online List</h1>
+        <h1 className='title is-size-4 has-text-centered'>
+          <FaSignal className='mr-2' />
+          Online List
+        </h1>
         <ul className='has-text-centered'>
           {onlineList
             .filter((user) => user.nickName !== nickName)
@@ -18,7 +22,7 @@ const OnlineListComp: FC = () => {
               <li key={i} className='is-size-4'>
                 <i className='fa fa-dot-circle has-text-light is-text-1'></i>
                 {'  '}
-                {item.nickName.charAt(0).toUpperCase() + nickName.slice(1)}
+                {item.nickName.charAt(0).toUpperCase() + item.nickName.slice(1)}
               </li>
             ))}
         </ul>

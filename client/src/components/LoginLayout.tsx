@@ -1,30 +1,13 @@
-import { FC, useCallback, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import styled from 'styled-components';
 
 // Components
-import { connector } from '@core/App';
 import { useGlobalContext } from '@states/index';
+import { enterChat, onEnterKeyPress } from '@core/functions';
 
 const LoginLayout: FC = () => {
-  const { nickName, setNickName } = useGlobalContext();
-  const { setLogin } = useGlobalContext();
-  const { warning, setWarning } = useGlobalContext();
-
-  const enterChat = useCallback(() => {
-    if (nickName === '') {
-      setWarning('You should enter your nickname first!');
-    } else {
-      connector.on('loginMsg', (msg: string) => {
-        if (msg === 'Success' && !warning) {
-          setLogin(true);
-        } else {
-          setLogin(false);
-        }
-      });
-
-      connector.emit('Join', nickName);
-    }
-  }, [nickName, setLogin, warning, setWarning]);
+  const { nickName, setNickName, warning, setWarning, setLogin } =
+    useGlobalContext();
 
   useEffect(() => {
     setTimeout(() => setWarning(''), 3000);
@@ -47,17 +30,24 @@ const LoginLayout: FC = () => {
               name='nickName'
               value={nickName}
               onChange={(e) => setNickName(e.target.value)}
+              onKeyDown={(e) => {
+                onEnterKeyPress(e, { nickName, warning, setWarning, setLogin });
+              }}
               className='input'
               placeholder='NickName'
             />
           </section>
-          <button
-            type='button'
-            onClick={enterChat}
-            className='button is-info ml-2'
-          >
-            Enter
-          </button>
+          <div className='enterBtnContainer ml-2'>
+            <button
+              type='button'
+              className='button is-info enterBtn'
+              onClick={() => {
+                enterChat({ nickName, warning, setWarning, setLogin });
+              }}
+            >
+              Enter
+            </button>
+          </div>
         </section>
       </form>
     </LoginSection>

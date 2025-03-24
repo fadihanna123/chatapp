@@ -23,8 +23,8 @@ const App: React.FC = () => {
       setOnlineList((prev) => [...prev, payload]);
     });
 
-    connector?.on('Messages', (data: msgListTypes[]) => {
-      setMsgList(data);
+    connector?.on('new message', (data: msgListTypes) => {
+      setMsgList((prev) => [...prev, data]);
     });
 
     connector?.on('typing started', (nickName: string) => {
@@ -47,7 +47,7 @@ const App: React.FC = () => {
 
     return () => {
       connector?.off('new user');
-      connector?.off('Messages');
+      connector?.off('new message');
       connector?.off('user disconnected');
       connector?.off('typing started');
       connector?.off('typing stopped');

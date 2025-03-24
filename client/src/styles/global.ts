@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
   * {
@@ -40,5 +40,10 @@ export const GlobalStyles = createGlobalStyle`
     background: #555;
   }
 
-  
+  @media (max-width: 768px) {
+    .enterBtnContainer {
+      display: flex;
+      justify-content: center;
+      margin: 10px;
+    }  
 `;
