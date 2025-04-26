@@ -7,6 +7,8 @@ export const MyGlobalContext = createContext<MyGlobalContextInterface>({
   onlineList: [],
   msgVal: '',
   msgList: [],
+  lang: 'en',
+  setLang: () => {},
   setOnlineList: () => {},
   setMsgList: () => {},
   setMsgVal: () => {},

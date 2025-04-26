@@ -21,6 +21,8 @@ declare global {
     onlineList: OnlineListTypes[];
     msgVal: string;
     msgList: msgListTypes[];
+    lang: Languages;
+    setLang: (lang: Languages) => void;
     setOnlineList: (onlineList: OnlineListTypes[]) => void;
     setMsgVal: (msgVal: string) => void;
     setMsgList: (msgList: msgListTypes[]) => void;
@@ -32,6 +34,9 @@ declare global {
     typingUser: string;
     setTypingUser: (typingUser: string) => void;
   }
+
+  type Translations = typeof import('@translations/en.json');
+  type Languages = 'en' | 'sw' | undefined;
 }
 
 export {};

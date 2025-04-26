@@ -5,6 +5,9 @@ import { io } from 'socket.io-client';
 import ChatLayout from '@components/ChatLayout';
 import LoginLayout from '@components/LoginLayout';
 import { MyGlobalContext } from '@states/index';
+import { getStorage, setStorage } from '@functions/storage';
+import { localStorageKeys } from '@utils/consts';
+import Header from '@inc/Header';
 
 export const connector = io('http://localhost:5000');
 
@@ -17,6 +20,8 @@ const App: React.FC = () => {
   const [msgList, setMsgList] = useState<msgListTypes[]>([]);
   const [typingUser, setTypingUser] = useState<string>('');
   const [isTyping, setIsTyping] = useState<boolean>(false);
+  const [lang, setLang] = useState<Languages>('en');
+  const langFromStorage = getStorage(localStorageKeys.Lang);
 
   useEffect(() => {
     connector?.on('new user', (payload: OnlineListTypes) => {
@@ -45,6 +50,12 @@ const App: React.FC = () => {
       setOnlineList(filteredArr);
     });
 
+    if (!langFromStorage) {
+      setStorage(localStorageKeys.Lang, 'en');
+    }
+
+    setLang(langFromStorage as Languages);
+
     return () => {
       connector?.off('new user');
       connector?.off('new message');
@@ -63,6 +74,8 @@ const App: React.FC = () => {
         onlineList,
         msgVal,
         msgList,
+        lang,
+        setLang,
         setOnlineList,
         setMsgList,
         setMsgVal,
@@ -76,6 +89,7 @@ const App: React.FC = () => {
       }}
     >
       <div className='container'>
+        <Header />
         {login ? <ChatLayout /> : <LoginLayout />}
       </div>
     </MyGlobalContext.Provider>

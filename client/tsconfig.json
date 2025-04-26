@@ -8,7 +8,7 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "ES2015",
+    "module": "ESNext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -21,9 +21,13 @@
     "paths": {
       "@core/*": ["./src/*"],
       "@components/*": ["./src/components/*"],
+      "@functions/*": ["./src/functions/*"],
+      "@hooks/*": ["./src/hooks/*"],
       "@inc/*": ["./src/inc/*"],
       "@states/*": ["./src/states/*"],
-      "@styles/*": ["./src/styles/*"]
+      "@styles/*": ["./src/styles/*"],
+      "@translations/*": ["./src/translations/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   },
   "include": ["./src/**/*", "./vite.config.mts"],

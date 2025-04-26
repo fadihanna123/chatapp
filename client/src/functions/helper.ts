@@ -1,4 +1,5 @@
 import { connector } from '@core/App';
+import { localStorageKeys } from '@core/utils';
 
 export const enterChat = (loginPayload: Partial<MyGlobalContextInterface>) => {
   if (loginPayload.nickName === '') {
@@ -23,5 +24,18 @@ export const onEnterKeyPress = (
   if (e.key === 'Enter') {
     e.preventDefault();
     enterChat({ nickName, warning, setWarning, setLogin });
+  }
+};
+
+export const switchLang = (
+  e: { target: HTMLSelectElement },
+  setLang: (lang: Languages) => void
+) => {
+  try {
+    const newLang = e.target.value as Languages;
+    localStorage.setItem(localStorageKeys.Lang, newLang);
+    setLang(newLang);
+  } catch (err) {
+    console.error('Error switching language:', err);
   }
 };

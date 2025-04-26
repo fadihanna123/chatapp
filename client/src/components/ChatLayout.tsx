@@ -4,9 +4,10 @@ import { FaPaperPlane } from 'react-icons/fa';
 
 // Components
 import { connector } from '@core/App';
-import Header from '@inc/Header';
 import { useGlobalContext } from '@states/index';
 import OnlineListComp from './OnlineListComp';
+import { isTypingText, send, sendMsgText } from '@core/utils';
+import useTranslate from '@core/hooks/useTranslate';
 
 const ChatLayout: FC = () => {
   const {
@@ -18,9 +19,11 @@ const ChatLayout: FC = () => {
     setIsTyping,
     typingUser,
   } = useGlobalContext();
-  let typingTimer: ReturnType<typeof setTimeout>;
 
+  let typingTimer: ReturnType<typeof setTimeout>;
   const ref = useRef<HTMLDivElement>(null);
+
+  const { lang } = useGlobalContext();
 
   const sendMsg = (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,19 +48,18 @@ const ChatLayout: FC = () => {
   };
 
   useEffect(() => {
-    ref!.current!.scrollTo(0, ref.current!.scrollHeight);
+    ref.current!.scrollTo(0, ref.current!.scrollHeight);
   }, [ref]);
 
   return (
     <>
-      <Header />
-      <main className='columns m-2 p-0 section'>
+      <main className='columns mt-2 mx-auto p-0 section chatRoomWrapper'>
         <OnlineListComp />
         <Section className='column is-three-quarters p-2 has-background-warning has-text-light'>
           <ChatRoom className='chatRoom' ref={ref}>
             <ul>
-              {msgList.map((item: msgListTypes, i: number) => (
-                <li key={i} className='has-text-dark is-size-4'>
+              {msgList.map((item: msgListTypes) => (
+                <li key={item._id} className='has-text-dark is-size-4'>
                   <span
                     className={`has-d-inline is-size-4 ${item.author === nickName ? 'has-text-success' : 'has-text-link'}`}
                   >
@@ -69,11 +71,9 @@ const ChatLayout: FC = () => {
             </ul>
           </ChatRoom>
           {typingUser && (
-            <div className='has-text-info is-size-4'>
-              <span className='has-text-dark has-d-inline is-size-4'>
-                {typingUser}
-              </span>
-              : is typing...
+            <div className='has-text-dark is-size-4'>
+              <span className='has-d-inline is-size-4'>{typingUser}</span>
+              {useTranslate(isTypingText, lang)}
             </div>
           )}
           <SendForm>
@@ -92,15 +92,15 @@ const ChatLayout: FC = () => {
                       handleTyping();
                     }}
                     className='input resize'
-                    placeholder='Enter your message here...'
+                    placeholder={`${useTranslate(sendMsgText, lang)}`}
                   />
                 </section>
                 <button
                   type='button'
                   onClick={sendMsg}
-                  className='button is-success ml-2'
+                  className='button ml-2 is-success'
                 >
-                  <FaPaperPlane className='mr-2' /> Send
+                  <FaPaperPlane className='mr-2' /> {useTranslate(send, lang)}
                 </button>
               </section>
             </form>
@@ -121,7 +121,7 @@ const Section = styled.section`
 const ChatRoom = styled.div`
   width: 100%;
   overflow: scroll;
-  height: 500px;
+  height: 530px;
   transition: 0.3s;
 `;
 

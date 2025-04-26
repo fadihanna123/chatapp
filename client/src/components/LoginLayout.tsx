@@ -4,9 +4,11 @@ import styled from 'styled-components';
 // Components
 import { useGlobalContext } from '@states/index';
 import { enterChat, onEnterKeyPress } from '@core/functions';
+import { enter, nickNameField } from '@core/utils';
+import useTranslate from '@core/hooks/useTranslate';
 
 const LoginLayout: FC = () => {
-  const { nickName, setNickName, warning, setWarning, setLogin } =
+  const { nickName, setNickName, warning, setWarning, setLogin, lang } =
     useGlobalContext();
 
   useEffect(() => {
@@ -34,7 +36,7 @@ const LoginLayout: FC = () => {
                 onEnterKeyPress(e, { nickName, warning, setWarning, setLogin });
               }}
               className='input'
-              placeholder='NickName'
+              placeholder={`${useTranslate(nickNameField, lang)}`}
             />
           </section>
           <div className='enterBtnContainer ml-2'>
@@ -45,7 +47,7 @@ const LoginLayout: FC = () => {
                 enterChat({ nickName, warning, setWarning, setLogin });
               }}
             >
-              Enter
+              {useTranslate(enter, lang)}
             </button>
           </div>
         </section>
