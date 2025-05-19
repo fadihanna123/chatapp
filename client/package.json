@@ -4,7 +4,7 @@
   "lastUpgrade": "20250426",
   "private": true,
   "dependencies": {
-    "@types/react": "19.1.2",
+    "@types/react": "19.1.4",
     "@types/react-dom": "19.1.4",
     "bulma": "1.0.4",
     "normalize.css": "8.0.1",
