@@ -1,13 +1,13 @@
-import styled from 'styled-components';
-import { FC, useEffect, useRef } from 'react';
-import { FaPaperPlane } from 'react-icons/fa';
+import styled from "styled-components";
+import { FC, useEffect, useRef } from "react";
+import { FaPaperPlane } from "react-icons/fa";
 
 // Components
-import { connector } from '@core/App';
-import { useGlobalContext } from '@states/index';
-import OnlineListComp from './OnlineListComp';
-import { isTypingText, send, sendMsgText } from '@core/utils';
-import useTranslate from '@core/hooks/useTranslate';
+import { connector } from "@core/App";
+import { useGlobalContext } from "@core/states/index";
+import OnlineListComp from "./OnlineListComp";
+import { isTypingText, send, sendMsgText } from "@core/utils";
+import useTranslate from "@core/hooks/useTranslate";
 
 const ChatLayout: FC = () => {
   const {
@@ -27,23 +27,23 @@ const ChatLayout: FC = () => {
 
   const sendMsg = (e: React.FormEvent) => {
     e.preventDefault();
-    if (msgVal === '') return;
+    if (msgVal === "") return;
     const msgTime = new Date();
-    connector?.emit('send message', nickName, msgVal, msgTime);
+    connector?.emit("send message", nickName, msgVal, msgTime);
     setIsTyping(false);
-    setMsgVal('');
+    setMsgVal("");
   };
 
   const handleTyping = () => {
     if (!isTyping) {
       setIsTyping(true);
-      connector?.emit('typing started', nickName);
+      connector?.emit("typing started", nickName);
     }
 
     clearTimeout(typingTimer);
     typingTimer = setTimeout(() => {
       setIsTyping(false);
-      connector?.emit('typing stopped', nickName);
+      connector?.emit("typing stopped", nickName);
     }, 5000);
   };
 
@@ -53,15 +53,15 @@ const ChatLayout: FC = () => {
 
   return (
     <>
-      <main className='columns mt-2 mx-auto p-0 section chatRoomWrapper'>
+      <main className="columns mt-2 mx-auto p-0 section chatRoomWrapper">
         <OnlineListComp />
-        <Section className='column is-three-quarters p-2 has-background-warning has-text-light'>
-          <ChatRoom className='chatRoom' ref={ref}>
+        <Section className="column is-three-quarters p-2 has-background-warning has-text-light">
+          <ChatRoom className="chatRoom" ref={ref}>
             <ul>
               {msgList.map((item: msgListTypes) => (
-                <li key={item._id} className='has-text-dark is-size-4'>
+                <li key={item._id} className="has-text-dark is-size-4">
                   <span
-                    className={`has-d-inline is-size-4 ${item.author === nickName ? 'has-text-success' : 'has-text-link'}`}
+                    className={`has-d-inline is-size-4 ${item.author === nickName ? "has-text-success" : "has-text-link"}`}
                   >
                     {item.author.charAt(0).toUpperCase() + item.author.slice(1)}
                   </span>
@@ -71,36 +71,36 @@ const ChatLayout: FC = () => {
             </ul>
           </ChatRoom>
           {typingUser && (
-            <div className='has-text-dark is-size-4'>
-              <span className='has-d-inline is-size-4'>{typingUser}</span>
+            <div className="has-text-dark is-size-4">
+              <span className="has-d-inline is-size-4">{typingUser}</span>
               {useTranslate(isTypingText, lang)}
             </div>
           )}
           <SendForm>
-            <form className='p-2'>
-              <section className='field is-horizontal'>
-                <section className='control field-body has-icons-left has-icons-right'>
+            <form className="p-2">
+              <section className="field is-horizontal">
+                <section className="control field-body has-icons-left has-icons-right">
                   <input
-                    type='text'
-                    name='msg'
+                    type="text"
+                    name="msg"
                     value={msgVal}
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter') sendMsg(e);
+                      if (e.key === "Enter") sendMsg(e);
                     }}
                     onChange={(e) => {
                       setMsgVal(e.target.value);
                       handleTyping();
                     }}
-                    className='input resize'
+                    className="input resize"
                     placeholder={`${useTranslate(sendMsgText, lang)}`}
                   />
                 </section>
                 <button
-                  type='button'
+                  type="button"
                   onClick={sendMsg}
-                  className='button ml-2 is-success'
+                  className="button ml-2 is-success"
                 >
-                  <FaPaperPlane className='mr-2' /> {useTranslate(send, lang)}
+                  <FaPaperPlane className="mr-2" /> {useTranslate(send, lang)}
                 </button>
               </section>
             </form>
