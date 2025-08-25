@@ -19,7 +19,12 @@ export const enterChat = (loginPayload: Partial<MyGlobalContextInterface>) => {
 
 export const onEnterKeyPress = (
   e: React.KeyboardEvent<HTMLInputElement>,
-  { nickName, warning, setWarning, setLogin }: Partial<MyGlobalContextInterface>
+  {
+    nickName,
+    warning,
+    setWarning,
+    setLogin,
+  }: Partial<MyGlobalContextInterface>,
 ) => {
   if (e.key === "Enter") {
     e.preventDefault();
@@ -29,7 +34,7 @@ export const onEnterKeyPress = (
 
 export const switchLang = (
   e: { target: HTMLSelectElement },
-  setLang: (lang: Languages) => void
+  setLang: (lang: Languages) => void,
 ) => {
   try {
     const newLang = e.target.value as Languages;

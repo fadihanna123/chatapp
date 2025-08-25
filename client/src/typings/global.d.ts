@@ -35,8 +35,8 @@ declare global {
     setTypingUser: (typingUser: string) => void;
   }
 
-  type Translations = typeof import('@translations/en.json');
-  type Languages = 'en' | 'sw' | undefined;
+  type Translations = typeof import("@translations/en.json");
+  type Languages = "en" | "sw" | undefined;
 }
 
 export {};

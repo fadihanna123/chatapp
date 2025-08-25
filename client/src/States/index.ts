@@ -1,13 +1,13 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext } from "react";
 
 export const MyGlobalContext = createContext<MyGlobalContextInterface>({
   login: false,
-  nickName: '',
-  warning: '',
+  nickName: "",
+  warning: "",
   onlineList: [],
-  msgVal: '',
+  msgVal: "",
   msgList: [],
-  lang: 'en',
+  lang: "en",
   setLang: () => {},
   setOnlineList: () => {},
   setMsgList: () => {},
@@ -17,7 +17,7 @@ export const MyGlobalContext = createContext<MyGlobalContextInterface>({
   setWarning: () => {},
   isTyping: false,
   setIsTyping: () => {},
-  typingUser: '',
+  typingUser: "",
   setTypingUser: () => {},
 });
 

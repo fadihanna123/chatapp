@@ -44,7 +44,7 @@ const App: React.FC = () => {
 
     connector?.on("user disconnected", (nickName: string) => {
       const filteredArr = onlineList.filter(
-        (item) => item.nickName !== nickName
+        (item) => item.nickName !== nickName,
       );
 
       setOnlineList(filteredArr);

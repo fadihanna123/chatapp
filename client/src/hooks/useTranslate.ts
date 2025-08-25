@@ -10,7 +10,7 @@
  * @example useTranslation("Start", "en");
  */
 const useTranslate = (val: keyof Translations, lang: Languages) => {
-  const data = require(`../translations/${lang || 'en'}.json`);
+  const data = require(`../translations/${lang || "en"}.json`);
 
   return data[val as keyof Translations];
 };

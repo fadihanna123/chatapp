@@ -1,4 +1,4 @@
-import { localStorageKeys } from '@core/utils';
+import { localStorageKeys } from "@core/utils";
 
 export const getStorage = (key: localStorageKeys) => {
   const data = localStorage.getItem(key);
