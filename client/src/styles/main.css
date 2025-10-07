@@ -20,6 +20,13 @@ img {
   height: auto;
 }
 
+.pageLoading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .chatRoomWrapper {
   height: 86vh;
 }

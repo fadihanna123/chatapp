@@ -8,11 +8,13 @@ import { MyGlobalContext } from "@core/states/index";
 import { getStorage, setStorage } from "@functions/storage";
 import { localStorageKeys } from "@utils/consts";
 import Header from "@inc/Header";
+import { BarLoader } from "react-spinners";
 
 export const connector = io("http://localhost:5000");
 
 const App: React.FC = () => {
   const [login, setLogin] = useState<boolean>(false);
+  const [pageLoading, setPageLoading] = useState<boolean>(true);
   const [nickName, setNickName] = useState<string>("");
   const [warning, setWarning] = useState<string>("");
   const [onlineList, setOnlineList] = useState<OnlineListTypes[]>([]);
@@ -44,7 +46,7 @@ const App: React.FC = () => {
 
     connector?.on("user disconnected", (nickName: string) => {
       const filteredArr = onlineList.filter(
-        (item) => item.nickName !== nickName,
+        (item) => item.nickName !== nickName
       );
 
       setOnlineList(filteredArr);
@@ -64,6 +66,24 @@ const App: React.FC = () => {
       connector?.off("typing stopped");
     };
   }, [setOnlineList, setMsgList]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setPageLoading(false), 2000);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  if (pageLoading) {
+    return (
+      <div className="pageLoading">
+        <BarLoader
+          color={"#fff"}
+          loading={pageLoading}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      </div>
+    );
+  }
 
   return (
     <MyGlobalContext.Provider
