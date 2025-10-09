@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 
 // Components
-import ChatLayout from "@components/ChatLayout";
-import LoginLayout from "@components/LoginLayout";
+import ChatLayout from "@core/containers/ChatLayout";
+import LoginLayout from "@core/containers/LoginLayout";
 import { MyGlobalContext } from "@core/states/index";
 import { getStorage, setStorage } from "@functions/storage";
 import { localStorageKeys } from "@utils/consts";
@@ -68,7 +68,7 @@ const App: React.FC = () => {
   }, [setOnlineList, setMsgList]);
 
   useEffect(() => {
-    const timeout = setTimeout(() => setPageLoading(false), 2000);
+    const timeout = setTimeout(() => setPageLoading(false), 1000);
     return () => clearTimeout(timeout);
   }, []);
 

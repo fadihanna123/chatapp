@@ -27,6 +27,7 @@ const Header: FC = () => {
           className={`${login && "m-2"} lang-switcher`}
           value={lang || "en"}
           onChange={(e) => switchLang(e, setLang)}
+          name="lang-switcher"
         >
           <option value="en">EN</option>
           <option value="sw">SV</option>

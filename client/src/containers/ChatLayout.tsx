@@ -5,9 +5,9 @@ import { FaPaperPlane } from "react-icons/fa";
 // Components
 import { connector } from "@core/App";
 import { useGlobalContext } from "@core/states/index";
-import OnlineListComp from "./OnlineListComp";
 import { isTypingText, send, sendMsgText } from "@core/utils";
 import useTranslate from "@core/hooks/useTranslate";
+import OnlineListComp from "./OnlineListComp";
 
 const ChatLayout: FC = () => {
   const {
@@ -63,16 +63,29 @@ const ChatLayout: FC = () => {
                   <span
                     className={`has-d-inline is-size-4 ${item.author === nickName ? "has-text-success" : "has-text-link"}`}
                   >
-                    {item.author.charAt(0).toUpperCase() + item.author.slice(1)}
+                    <p
+                      style={{
+                        padding: ".25em",
+                        textAlign: item.author === nickName ? "left" : "right",
+                        overflowWrap: "normal",
+                      }}
+                    >
+                      <span
+                        className={`tag is-large ${item.author === nickName ? "is-success" : "is-info"}`}
+                      >
+                        {item.msg.charAt(0).toUpperCase() + item.msg.slice(1)}
+                      </span>
+                    </p>
                   </span>
-                  : {item.msg}
                 </li>
               ))}
             </ul>
           </ChatRoom>
           {typingUser && (
             <div className="has-text-dark is-size-4">
-              <span className="has-d-inline is-size-4">{typingUser}</span>
+              <span className="has-d-inline is-size-4">
+                {typingUser.charAt(0).toUpperCase() + typingUser.slice(1)}
+              </span>
               {useTranslate(isTypingText, lang)}
             </div>
           )}
