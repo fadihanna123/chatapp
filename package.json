@@ -5,7 +5,7 @@
   "license": "MIT",
   "lastUpgrade": "20250903",
   "scripts": {
-    "setup": "yarn --silent --immutable --ignore-scripts --emoji && cd server && yarn --silent --ignore-scripts --immutable --emoji && yarn seed && cd .. && cd client && yarn --emoji --silent --ignore-scripts --emoji --immutable",
+    "setup": "yarn --silent --immutable --ignore-scripts --emoji && cd server && yarn --silent --ignore-scripts --immutable --emoji && cd .. && cd client && yarn --emoji --silent --ignore-scripts --emoji --immutable",
     "dev": "concurrently \"cd server && yarn dev\" \"cd client && yarn dev\"",
     "seed": "cd server && yarn seed",
     "format": "cd server && yarn format && cd .. && cd client && yarn format",
