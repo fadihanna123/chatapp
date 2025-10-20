@@ -7,7 +7,6 @@
     "start": "node dist/server",
     "dev": "ts-node-dev --poll -r tsconfig-paths/register src/server",
     "build": "esbuild ./src/server.ts --bundle --minify --outdir=./build --platform=node",
-    "postinstall": "yarn seed",
     "studio": "prisma studio",
     "lint": "eslint ./ && tsc --noEmit && yarn type-check",
     "format": "prettier ./ -w",
