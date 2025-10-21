@@ -6,7 +6,7 @@ import { FaPaperPlane } from "react-icons/fa";
 import { connector } from "@core/App";
 import { useGlobalContext } from "@core/states/index";
 import { isTypingText, send, sendMsgText } from "@core/utils";
-import useTranslate from "@core/hooks/useTranslate";
+import translate from "@core/hooks/useTranslate";
 import OnlineListComp from "./OnlineListComp";
 
 const ChatLayout: FC = () => {
@@ -86,7 +86,7 @@ const ChatLayout: FC = () => {
               <span className="has-d-inline is-size-4">
                 {typingUser.charAt(0).toUpperCase() + typingUser.slice(1)}
               </span>
-              {useTranslate(isTypingText, lang)}
+              {translate(isTypingText, lang)}
             </div>
           )}
           <SendForm>
@@ -105,7 +105,7 @@ const ChatLayout: FC = () => {
                       handleTyping();
                     }}
                     className="input resize"
-                    placeholder={`${useTranslate(sendMsgText, lang)}`}
+                    placeholder={`${translate(sendMsgText, lang)}`}
                   />
                 </section>
                 <button
@@ -113,7 +113,7 @@ const ChatLayout: FC = () => {
                   onClick={sendMsg}
                   className="button ml-2 is-success"
                 >
-                  <FaPaperPlane className="mr-2" /> {useTranslate(send, lang)}
+                  <FaPaperPlane className="mr-2" /> {translate(send, lang)}
                 </button>
               </section>
             </form>

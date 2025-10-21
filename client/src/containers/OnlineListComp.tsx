@@ -5,7 +5,7 @@ import { FaSignal } from "react-icons/fa";
 import { useGlobalContext } from "@core/states/index";
 import { FC } from "react";
 import { onlineListText } from "@core/utils";
-import useTranslate from "@core/hooks/useTranslate";
+import translate from "@core/hooks/useTranslate";
 
 const OnlineListComp: FC = () => {
   const { onlineList, nickName, lang } = useGlobalContext();
@@ -15,7 +15,7 @@ const OnlineListComp: FC = () => {
       <Section className="column has-background-success has-text-light">
         <h1 className="title is-size-4 has-text-centered">
           <FaSignal className="mr-2" />
-          {useTranslate(onlineListText, lang)}
+          {translate(onlineListText, lang)}
         </h1>
         <ul className="has-text-centered">
           {onlineList

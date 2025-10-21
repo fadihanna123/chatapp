@@ -1,5 +1,5 @@
 import { switchLang } from "@core/functions";
-import useTranslate from "@core/hooks/useTranslate";
+import translate from "@core/hooks/useTranslate";
 import { welcome } from "@core/utils";
 import { useGlobalContext } from "@core/states/index";
 import { FC } from "react";
@@ -16,7 +16,7 @@ const Header: FC = () => {
           <section className="has-text-large is-info m-2 tile">
             <h1 className="title is-3 m-2">
               <>
-                {useTranslate(welcome, lang)}{" "}
+                {translate(welcome, lang)}{" "}
                 {nickName.charAt(0).toUpperCase() + nickName.slice(1)} 👋
               </>
             </h1>
