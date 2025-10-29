@@ -1,7 +1,7 @@
 {
   "name": "client",
-  "version": "0.1.19",
-  "lastUpgrade": "20251021",
+  "version": "0.1.20",
+  "lastUpgrade": "20251029",
   "private": true,
   "dependencies": {
     "@types/react": "19.2.2",
@@ -43,9 +43,9 @@
   },
   "devDependencies": {
     "@eslint/js": "9.38.0",
-    "@types/node": "^24.9.1",
-    "@types/styled-components": "5.1.34",
-    "@vitejs/plugin-react": "5.0.4",
+    "@types/node": "^24.9.2",
+    "@types/styled-components": "5.1.35",
+    "@vitejs/plugin-react": "5.1.0",
     "eslint": "9.38.0",
     "eslint-plugin-html": "8.1.3",
     "eslint-plugin-react": "7.37.5",
@@ -55,9 +55,9 @@
     "prettier": "3.6.2",
     "serve": "14.2.5",
     "typescript-eslint": "8.46.2",
-    "vite": "7.1.11",
+    "vite": "7.1.12",
     "vite-plugin-commonjs": "^0.10.4",
     "vite-tsconfig-paths": "5.1.4",
-    "vitest": "^3.2.4"
+    "vitest": "^4.0.5"
   }
 }

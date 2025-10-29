@@ -1,7 +1,7 @@
 {
   "name": "server",
-  "version": "1.0.21",
-  "lastUpgrade": "20251021",
+  "version": "1.0.22",
+  "lastUpgrade": "20251029",
   "scripts": {
     "setup": "yarn --emoji --silent --ignore-scripts --immutable",
     "start": "node dist/server",
@@ -16,9 +16,9 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@prisma/client": "6.17.1",
+    "@prisma/client": "6.18.0",
     "dotenv": "17.2.3",
-    "prisma": "6.17.1",
+    "prisma": "6.18.0",
     "socket.io": "4.8.1"
   },
   "devDependencies": {
