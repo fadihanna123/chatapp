@@ -9,19 +9,19 @@ datasource db {
 }
 
 model chat {
-  id           String   @id @default(uuid())
   author       String
   msg          String
   msgDatenTime DateTime
+  id           String   @id @default(uuid())
   created_at   DateTime @default(now())
   updated_at   DateTime @default(now()) @updatedAt
 }
 
 model onlinelist {
-  id              String   @id @default(uuid())
   nickName        String
   joinedDatenTime DateTime
   userId          String
+  id              String   @id @default(uuid())
   created_at      DateTime @default(now())
   updated_at      DateTime @default(now()) @updatedAt
 }
