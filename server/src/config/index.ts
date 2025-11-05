@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 
 /**
  * @author Fadi Hanna
@@ -16,8 +16,9 @@ const prisma = new PrismaClient();
 const connectDb = async (): Promise<void> => {
   try {
     await prisma.$connect();
+    console.log('Database is connected...');
   } catch (error) {
-    console.log("Error database connecting: ", error);
+    console.log('Error database connecting: ', error);
   }
 };
 

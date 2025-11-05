@@ -1,3 +1,15 @@
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv {
+      DEV_PORT: number;
+      PROD_PORT: number;
+      ALLOWEDOMAINS: string;
+      DATABASE_URL: string;
+      NODE_ENV: 'development' | 'production' | 'test';
+    }
+  }
+}
+
 export interface IMsgs {
   author: string;
   msg: string;

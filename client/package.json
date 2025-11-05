@@ -22,8 +22,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite serve",
-    "test": "vitest",
-    "lint": "eslint ./ && yarn type-check && htmlhint **/*.html",
+    "lint": "eslint && yarn type-check && htmlhint **/*.html",
     "type-check": "tsc --noEmit",
     "format": "prettier ./ -w",
     "ci": "yarn build && yarn test && yarn lint",
@@ -57,7 +56,6 @@
     "typescript-eslint": "8.46.2",
     "vite": "7.1.12",
     "vite-plugin-commonjs": "^0.10.4",
-    "vite-tsconfig-paths": "5.1.4",
-    "vitest": "^4.0.5"
+    "vite-tsconfig-paths": "5.1.4"
   }
 }

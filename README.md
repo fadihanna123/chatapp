@@ -8,7 +8,6 @@ A modern real-time chat application built with a React frontend and Node.js back
 - Modern and responsive UI
 - Type-safe development with TypeScript
 - Efficient state management
-- Secure authentication
 - Scalable architecture
 
 ## 🛠 Tech Stack
@@ -26,8 +25,6 @@ A modern real-time chat application built with a React frontend and Node.js back
 - Node.js
 - TypeScript
 - WebSocket for real-time communication
-- RESTful API
-- Secure authentication
 
 ## 📦 Prerequisites
 
@@ -95,6 +92,7 @@ chat_app/
 5. Open a Pull Request
 
 ## Screenshot
+
 ![Screenshot](screenshot.png "Screenshot")
 
 ## 📄 License

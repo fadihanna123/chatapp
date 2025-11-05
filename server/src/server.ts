@@ -1,55 +1,37 @@
-import { prisma } from "@/config";
-import "dotenv/config";
-import { Server, Socket } from "socket.io";
-import "./config";
+import 'dotenv/config';
+import { connectDb } from '@/config';
+import 'dotenv/config';
+import { Server, Socket } from 'socket.io';
+import './config';
+import { allowed_domains, serverPort } from './utils';
+import {
+  disconnect,
+  join,
+  sendMsg,
+  typingStarted,
+  typingStopped,
+} from './actions';
 
-const io = new Server(5000, { cors: { origin: "http://localhost:3000" } });
+const io = new Server(Number(serverPort), {
+  cors: { origin: allowed_domains?.split(', ') },
+});
 
-io.on("connection", async (socket: Socket) => {
+connectDb();
+
+io.on('connection', async (socket: Socket) => {
   console.log(`✅ Client ${socket.id} has connected!`);
 
-  socket.on("join", async (nickName: string) => {
-    const payload = {
-      nickName,
-      joinedDatenTime: new Date(),
-      userId: socket.id,
-    };
+  socket.on('join', (nickName: string) => join(socket, nickName, io));
 
-    socket.emit("loginMsg", "Success");
-    io.sockets.emit("new user", payload);
+  socket.on('send message', (author, msgVal, msgTime) =>
+    sendMsg(author, msgVal, msgTime, io)
+  );
 
-    console.log(`${nickName} is joined!`);
-  });
+  socket.on('typing started', (nickName: string) =>
+    typingStarted(nickName, socket)
+  );
 
-  socket.on("send message", async (author, msgVal, msgTime) => {
-    io.sockets.emit("new message", {
-      author,
-      msg: msgVal,
-      msgDatenTime: msgTime,
-    });
-  });
+  socket.on('typing stopped', () => typingStopped(socket));
 
-  socket.on("typing started", async (nickName: string) => {
-    socket.broadcast.emit("typing started", nickName);
-  });
-
-  socket.on("typing stopped", async () => {
-    socket.broadcast.emit("typing stopped");
-  });
-
-  socket.on("disconnect", async () => {
-    const findUser = await prisma.onlinelist.findFirst({
-      where: { userId: socket.id },
-    });
-
-    if (findUser) {
-      await prisma.onlinelist.deleteMany({
-        where: { userId: socket.id },
-      });
-    }
-
-    io.sockets.emit("user disconnected", findUser?.nickName);
-
-    console.log(`🚫 Client ${socket.id} has disconnected`);
-  });
+  socket.on('disconnect', () => disconnect(socket, io));
 });

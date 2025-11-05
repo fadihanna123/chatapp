@@ -8,6 +8,7 @@
     "setup": "yarn --silent --immutable --ignore-scripts --emoji && cd server && yarn --silent --ignore-scripts --immutable --emoji && cd .. && cd client && yarn --emoji --silent --ignore-scripts --emoji --immutable",
     "dev": "concurrently \"cd server && yarn dev\" \"cd client && yarn dev\"",
     "seed": "cd server && yarn seed",
+    "build": "yarn --cwd ./server build && yarn --cwd ./client build",
     "format": "cd server && yarn format && cd .. && cd client && yarn format",
     "lint": "cd server && yarn lint && cd .. && cd client && yarn lint",
     "ci": "cd server && yarn build && yarn lint && cd .. && cd client && yarn build && yarn test && yarn lint",
