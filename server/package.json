@@ -6,7 +6,7 @@
     "setup": "yarn --emoji --silent --ignore-scripts --immutable",
     "start": "node dist/server",
     "dev": "ts-node-dev --poll -r tsconfig-paths/register src/server",
-    "build": "esbuild ./src/server.ts --bundle --minify --sourcemap --outdir=./build --platform=node",
+    "build": "esbuild ./src/server.ts --bundle --minify --packages=external --sourcemap --outdir=./build --platform=node",
     "studio": "prisma studio",
     "lint": "eslint && tsc --noEmit && yarn type-check",
     "format": "prettier ./ -w",

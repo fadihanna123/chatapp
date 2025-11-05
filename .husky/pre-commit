@@ -1,4 +1,3 @@
 yarn setup
 yarn lint
-yarn format
 npx pretty-quick --staged
