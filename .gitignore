@@ -4,3 +4,4 @@ node_modules
 vite-env.d.ts
 build
 .DS_Store
+.cert

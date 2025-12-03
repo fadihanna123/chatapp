@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
 import commonjs from "vite-plugin-commonjs";
+import fs from "fs";
 
 export default defineConfig({
   base: "/",
@@ -13,6 +14,10 @@ export default defineConfig({
     port: 3000,
     strictPort: true,
     host: true,
+    https: {
+      key: fs.readFileSync("./.cert/key.pem"),
+      cert: fs.readFileSync("./.cert/cert.pem"),
+    },
     watch: {
       usePolling: true,
     },
