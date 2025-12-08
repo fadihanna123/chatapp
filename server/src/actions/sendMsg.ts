@@ -1,18 +1,18 @@
-import { prisma } from '@/config';
-import { DefaultEventsMap, Server } from 'socket.io';
+import { prisma } from "@/config";
+import { IMsgs } from "@/typings";
+import { DefaultEventsMap, Server } from "socket.io";
 
 const sendMsg = async (
-  author: string,
-  msgVal: string,
-  msgTime: Date,
-  io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap>
+  data: IMsgs,
+  io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap>,
 ) => {
-  if (!author || !msgVal || !msgTime) console.log('Not all data provided!!');
+  if (!data.author || !data.msg || !data.msgDatenTime)
+    console.log("Not all data provided!!");
 
   const payload = {
-    author,
-    msg: msgVal,
-    msgDatenTime: msgTime,
+    author: data.author,
+    msg: data.msg,
+    msgDatenTime: data.msgDatenTime,
   };
 
   try {
@@ -20,7 +20,7 @@ const sendMsg = async (
       data: payload,
     });
 
-    io.sockets.emit('new message', newChat);
+    io.sockets.emit("new message", newChat);
   } catch (error) {
     console.log(error);
   }
