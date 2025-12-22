@@ -1,8 +1,9 @@
+import "./db";
+
 import "dotenv/config";
-import { connectDb } from "@/config";
+import { connectDb } from "@/db";
 import "dotenv/config";
 import { Server, Socket } from "socket.io";
-import "./config";
 import { allowed_domains, serverPort } from "./utils";
 import {
   disconnect,

@@ -1,4 +1,4 @@
-import { prisma } from "@/config";
+import { connection } from "@/db";
 import { IMsgs } from "@/typings";
 import { DefaultEventsMap, Server } from "socket.io";
 
@@ -16,11 +16,16 @@ const sendMsg = async (
   };
 
   try {
-    const newChat = await prisma.chat.create({
-      data: payload,
-    });
+    connection.query(
+      "INSERT INTO chats (author, msg, msgDatenTime) VALUES (?, ?, ?)",
+      [data.author, data.msg, data.msgDatenTime],
+      (error) => {
+        if (error) throw error;
+        console.log("Message saved to database");
+      },
+    );
 
-    io.sockets.emit("new message", newChat);
+    io.sockets.emit("new message", payload);
   } catch (error) {
     console.log(error);
   }
