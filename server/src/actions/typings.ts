@@ -1,17 +1,18 @@
-import { Socket } from 'socket.io';
+import { Socket } from "socket.io";
 
+// typingStarted: Handle typing started event
 const typingStarted = (nickName: string, socket: Socket) => {
-  if (!nickName) console.log('No nickname provided!!');
+  if (!nickName) console.log("No nickname provided!!");
 
   try {
-    socket.broadcast.emit('typing started', nickName);
+    socket.broadcast.emit("typing started", nickName);
   } catch (error) {
     console.log(error);
   }
 };
 const typingStopped = (socket: Socket) => {
   try {
-    socket.broadcast.emit('typing stopped');
+    socket.broadcast.emit("typing stopped");
   } catch (error) {
     console.log(error);
   }

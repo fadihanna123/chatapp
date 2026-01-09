@@ -5,7 +5,7 @@ import pluginReact from "eslint-plugin-react";
 import html from "eslint-plugin-html";
 
 export default [
-  { ignores: ["node_modules", "build"] },
+  { ignores: ["./node_modules", "./build"] },
   { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
   { languageOptions: { globals: globals.browser } },
   pluginJs.configs.recommended,

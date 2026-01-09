@@ -1,6 +1,7 @@
 import { connector } from "@core/App";
 import { localStorageKeys } from "@core/utils";
 
+// enterChat: handle chat entry
 export const enterChat = (loginPayload: Partial<MyGlobalContextInterface>) => {
   if (loginPayload.nickName === "") {
     loginPayload.setWarning?.("You should enter your nickname first!");
@@ -17,6 +18,7 @@ export const enterChat = (loginPayload: Partial<MyGlobalContextInterface>) => {
   }
 };
 
+// onEnterKeyPress: handle enter key press
 export const onEnterKeyPress = (
   e: React.KeyboardEvent<HTMLInputElement>,
   {
@@ -32,6 +34,7 @@ export const onEnterKeyPress = (
   }
 };
 
+// switchLang: handle language switch
 export const switchLang = (
   e: { target: HTMLSelectElement },
   setLang: (lang: Languages) => void,

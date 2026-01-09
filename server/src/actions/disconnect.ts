@@ -1,6 +1,7 @@
 import { connection } from "@/db";
 import { DefaultEventsMap, Server, Socket } from "socket.io";
 
+// disconnect: Handle client disconnection
 const disconnect = async (
   socket: Socket,
   io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap>,

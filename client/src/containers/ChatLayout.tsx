@@ -25,6 +25,7 @@ const ChatLayout: FC = () => {
 
   const { lang } = useGlobalContext();
 
+  // sendMsg: send message
   const sendMsg = (e: React.FormEvent) => {
     e.preventDefault();
     if (msgVal === "") return;
@@ -39,6 +40,7 @@ const ChatLayout: FC = () => {
     setMsgVal("");
   };
 
+  // handleTyping: handle typing
   const handleTyping = () => {
     if (!isTyping) {
       setIsTyping(true);

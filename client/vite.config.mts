@@ -3,6 +3,11 @@ import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
 import commonjs from "vite-plugin-commonjs";
 import fs from "fs";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const isDev = process.env.NODE_ENV === "development";
 
 export default defineConfig({
   base: "/",
@@ -12,6 +17,7 @@ export default defineConfig({
   },
   server: {
     port: 3000,
+    open: isDev,
     strictPort: true,
     host: true,
     https: {

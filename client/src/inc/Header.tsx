@@ -1,8 +1,10 @@
+import { FC } from "react";
+
+// Components
 import { switchLang } from "@core/functions";
 import translate from "@core/hooks/useTranslate";
 import { welcome } from "@core/utils";
 import { useGlobalContext } from "@core/states/index";
-import { FC } from "react";
 
 const Header: FC = () => {
   const { nickName, login, lang, setLang } = useGlobalContext();

@@ -1,12 +1,13 @@
-import { DefaultEventsMap, Server, Socket } from 'socket.io';
+import { DefaultEventsMap, Server, Socket } from "socket.io";
 
+// join: Handle client connection
 const join = (
   socket: Socket,
   nickName: string,
-  io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap>
+  io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap>,
 ) => {
   {
-    if (!nickName) console.log('No nickname provided!!');
+    if (!nickName) console.log("No nickname provided!!");
 
     const payload = {
       nickName,
@@ -15,8 +16,8 @@ const join = (
     };
 
     try {
-      socket.emit('loginMsg', 'Success');
-      io.sockets.emit('new user', payload);
+      socket.emit("loginMsg", "Success");
+      io.sockets.emit("new user", payload);
 
       console.log(`${nickName} is joined!`);
     } catch (error) {

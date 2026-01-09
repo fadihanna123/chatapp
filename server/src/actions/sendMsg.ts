@@ -2,6 +2,7 @@ import { connection } from "@/db";
 import { IMsgs } from "@/typings";
 import { DefaultEventsMap, Server } from "socket.io";
 
+// sendMsg: Handle message sending
 const sendMsg = async (
   data: IMsgs,
   io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap>,
